@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <style>
+        /* CSS style to make each half occupy 50% of the device width */
+        .half {
+            flex: 1;
+            width: 50%;
+            margin: 0 10px;
+        }
+    </style>
+    
+    <div style="display: flex; justify-content: space-between;">
+        <!-- First Half -->
+        <div class="half">
+            <form>
+                <label for="songTitle">Song Title:</label>
+                <input type="text" id="songTitle" name="songTitle"><br><br>
+                
+                <label for="artist">Artist:</label>
+                <input type="text" id="artist" name="artist"><br><br>
+                
+                <label for="lyrics">Lyrics:</label><br>
+                <textarea id="lyrics" name="lyrics" rows="6" cols="50"></textarea><br><br>
+                
+                <input type="submit" value="Generate">
+            </form>
+        </div>
+        
+        <!-- Second Half -->
+        <div class="half">
+            <form>
+                <div style="display: flex; justify-content: space-between;">
+                    <!-- Font Options -->
+                    <div style="flex: 1; margin-right: 10px;">
+                        <label for="fontType">Font Type:</label>
+                        <select id="fontType" name="fontType">
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Verdana">Verdana</option>
+                            <!-- Add more font options here -->
+                        </select>
+                    </div>
+                    
+                    <div style="flex: 1; margin-right: 10px;">
+                        <label for="fontSize">Font Size:</label>
+                        <select id="fontSize" name="fontSize">
+                            <option value="12px">12px</option>
+                            <option value="16px">16px</option>
+                            <option value="20px">20px</option>
+                            <!-- Add more font size options here -->
+                        </select>
+                    </div>
+                    
+                    <div style="flex: 1;">
+                        <label for="fontColor">Font Color:</label>
+                        <select id="fontColor" name="fontColor">
+                            <option value="black">Black</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="green">Green</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                    <!-- Chord Options -->
+                    <div style="flex: 1; margin-right: 10px;">
+                        <label for="chordType">Chord Type:</label>
+                        <select id="chordType" name="chordType">
+                            <option value="Basic">Basic</option>
+                            <option value="Advanced">Advanced</option>
+                            <!-- Add more chord type options here -->
+                        </select>
+                    </div>
+                    
+                    <div style="flex: 1; margin-right: 10px;">
+                        <label for="chordSize">Chord Size:</label>
+                        <select id="chordSize" name="chordSize">
+                            <option value="Small">Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">Large</option>
+                            <!-- Add more chord size options here -->
+                        </select>
+                    </div>
+                    
+                    <div style="flex: 1;">
+                        <label for="chordColor">Chord Color:</label>
+                        <select id="chordColor" name="chordColor">
+                            <option value="black">Black</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="green">Green</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <label for="displayArea">Display Area:</label><br>
+                <textarea id="displayArea" name="displayArea" rows="6" cols="50"></textarea><br><br>
+                
+                <input type="submit" value="Export">
+            </form>
+        </div>
+    </div>
+{% endblock %}
