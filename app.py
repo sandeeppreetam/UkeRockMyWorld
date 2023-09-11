@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, Response
 import re
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 
@@ -23,29 +23,40 @@ def split_lines(original_line):
             chord_line = chord_line + (len(item)-chord_length)*' '
             lyric_line = lyric_line + item
     
-    return (chord_line, lyric_line)
+    return (chord_line, lyric_line[:-1])
 
-def generate_pdf(txt,song,artist, filename):
-    cv = canvas.Canvas(filename, pagesize=letter)
-    cv.setFont("Courier-Bold", 16)
-    cv.drawString(100, 750, song)
-    cv.setFont("Courier-Bold", 14)
-    cv.drawString(100, 730, artist)
-    cv.drawString(100, 710, '----------------')
-  
-    y = 700
-    
-    cv.setFont("Courier", 12)
+def generate_pdf(txt, song, artist, filename):
+    fontStyle ='Courier-Bold'
+    x = 50
+    y = 750
+    cv = canvas.Canvas(filename, pagesize=A4)
+    cv.setFont(fontStyle, 16)
+    cv.drawString(x, y, song)
+    y -= 20
+    cv.setFont(fontStyle, 14)
+    cv.drawString(x, y, artist)
+    y -= 30
+    cv.line(x, y, x + 500, y)  # Draw a line separator
+
+    y -= 30
+    cv.setFont(fontStyle, 12)
     lines = txt.split('\n')
     for line in lines:
         ol = original_line(line)
-        l1,l2 = split_lines(ol)
+        l1, l2 = split_lines(ol)
+
+        # Draw chords in red
         cv.setFillColor(colors.red)
-        cv.drawString(100, y, l1)
-        y = y - 10
+        cv.drawString(x, y, l1)
         cv.setFillColor(colors.black)
-        cv.drawString(100, y, l2)
-        y = y - 20
+        y -= 10
+
+        # Draw lyrics
+        cv.drawString(x, y, l2)
+
+        # Add a line break
+        y -= 30
+
     cv.save()
 
 @app.route("/")
@@ -65,4 +76,4 @@ def generate():
   return response
 
 if __name__ == "__main__":
-    app.run(debug=False,host='0.0.0.0', port=5000)
+    app.run(debug=True,host='0.0.0.0', port=5000)
