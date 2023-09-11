@@ -49,7 +49,7 @@ def generate_pdf(txt, song, artist, filename):
         cv.setFillColor(colors.red)
         cv.drawString(x, y, l1)
         cv.setFillColor(colors.black)
-        y -= 10
+        y -= 15
 
         # Draw lyrics
         cv.drawString(x, y, l2)
